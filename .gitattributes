@@ -1,0 +1,17 @@
+    *.exe filter=lfs diff=lfs merge=lfs -text
+    *.ipa filter=lfs diff=lfs merge=lfs -text
+    *.app filter=lfs diff=lfs merge=lfs -text
+    *.lib filter=lfs diff=lfs merge=lfs -text
+    *.dylib filter=lfs diff=lfs merge=lfs -text
+    *.dll filter=lfs diff=lfs merge=lfs -text
+    *.stub filter=lfs diff=lfs merge=lfs -text
+    *.uasset filter=lfs diff=lfs merge=lfs -text lockable
+    *.umap filter=lfs diff=lfs merge=lfs -text lockable
+    *.upk filter=lfs diff=lfs merge=lfs -text lockable
+    *.udk filter=lfs diff=lfs merge=lfs -text lockable
+    *.bmp filter=lfs diff=lfs merge=lfs -text lockable
+    *.jpg filter=lfs diff=lfs merge=lfs -text lockable
+    *.jpeg filter=lfs diff=lfs merge=lfs -text lockable
+    *.png filter=lfs diff=lfs merge=lfs -text lockable
+    *.usdc filter=lfs diff=lfs merge=lfs -text lockable
+    *.usdz filter=lfs diff=lfs merge=lfs -text lockable

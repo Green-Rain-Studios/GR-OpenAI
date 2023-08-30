@@ -39,6 +39,8 @@ public class GROpenAI : ModuleRules
 				"Slate",
 				"SlateCore",
 				"Json",
+				"JsonUtilities",
+				"JsonBlueprintUtilities",
 				"HttpCommon",
 				"DeveloperSettings"
 				// ... add private dependencies that you statically link with here ...	

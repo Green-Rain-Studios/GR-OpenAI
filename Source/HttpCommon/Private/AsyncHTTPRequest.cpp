@@ -7,6 +7,15 @@ void UAsyncHTTPRequest::Activate()
 	// Create HTTP Request
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> HttpRequest = FHttpModule::Get().CreateRequest();
 	HttpRequest->SetHeader(TEXT("Content-Type"), TEXT("application/json"));
+
+	// Set additional headers if dict is not empty
+	if(!AdditionalHeaders.IsEmpty())
+	{
+		for(TTuple<FString, FString> header : AdditionalHeaders)
+		{
+			HttpRequest->AppendToHeader(header.Key, header.Value);
+		}
+	}
 	HttpRequest->SetURL(URL);
 	HttpRequest->SetContentAsString(RequestBody);
 	switch (RequestType)
@@ -50,11 +59,13 @@ void UAsyncHTTPRequest::ProcessHTTPRequest(FHttpRequestPtr Request, FHttpRespons
 }
 
 UAsyncHTTPRequest* UAsyncHTTPRequest::AsyncRequestHTTP(UObject* WorldContextObject, const FString& Url,
-                                                       const FString& RequestBody, const EHttpRequestType& RequestMethod)
+														const TMap<FString, FString>& AdditionalHeaders,
+														const FString& RequestBody, const EHttpRequestType& RequestMethod)
 {
 	// Create blueprint action instance
 	UAsyncHTTPRequest* action = NewObject<UAsyncHTTPRequest>();
 	action->URL = Url;
+	action->AdditionalHeaders = AdditionalHeaders;
 	action->RequestBody = RequestBody;
 	action->RequestType = RequestMethod;
 

@@ -25,7 +25,7 @@ class HTTPCOMMON_API UAsyncHTTPRequest : public UBlueprintAsyncActionBase
 	GENERATED_BODY()
 public:
 	UFUNCTION(BlueprintCallable, meta = (BlueprintInternalUseOnly = "true", Category = "GROpenAI|HTTP", WorldContext = "WorldContextObject"))
-	static UAsyncHTTPRequest* AsyncRequestHTTP(UObject* WorldContextObject, const FString& Url, const FString& RequestBody, const EHttpRequestType& RequestMethod);
+	static UAsyncHTTPRequest* AsyncRequestHTTP(UObject* WorldContextObject, const FString& Url, const TMap<FString, FString>& AdditionalHeaders, const FString& RequestBody, const EHttpRequestType& RequestMethod);
 
 	virtual void Activate() override;
 
@@ -36,6 +36,7 @@ public:
 	EHttpRequestType RequestType;
 	FString URL;
 	FString RequestBody;
+	TMap<FString, FString> AdditionalHeaders;
 
 protected:
 	void HandleRequestCompleted(FString ResponseString, bool bSuccess);

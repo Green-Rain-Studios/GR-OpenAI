@@ -39,7 +39,7 @@ FString UOpenAIUtils::GetAPIToken()
 
 FString UOpenAIUtils::GetModelName(EGPTModels ModelEnum)
 {
-	const UEnum* EnumPtr = FindObject<UEnum>(GetTransientPackage(), TEXT("EGPTModels"), true);
+	const UEnum* EnumPtr = StaticEnum<EGPTModels>();
 	if (!EnumPtr) return FString("Invalid");
 
 	return EnumPtr->GetDisplayNameTextByIndex(static_cast<int32>(ModelEnum)).ToString();

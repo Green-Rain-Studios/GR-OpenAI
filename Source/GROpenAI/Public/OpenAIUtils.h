@@ -20,7 +20,7 @@ class UOpenAIUtils : public UBlueprintFunctionLibrary
 	GENERATED_UCLASS_BODY()
 
 	// Get the API token stored in the settings
-	UFUNCTION(BlueprintPure, Category="GROpenAI", meta=(CompactNodeTitle="Token"))
+	UFUNCTION(BlueprintPure, Category="GROpenAI", meta=(CompactNodeTitle="OpenAI Token"))
 	static FString GetAPIToken();
 
 	// Get the display name of an EGPTModels enum value

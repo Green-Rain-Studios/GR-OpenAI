@@ -7,7 +7,7 @@
 #include "OpenAIUtils.generated.h"
 
 UENUM(BlueprintType)
-enum EGPTModels : uint8
+enum EGPTModel : uint8
 {
 	GPTM_GPT3_5		UMETA(DisplayName = "gpt-3.5-turbo"),
 	GPTM_GPT4		UMETA(DisplayName = "gpt-4")
@@ -23,7 +23,7 @@ public:
 
 	// The model to use. Defaults to gpt-3.5-turbo
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category="Conversation")
-	TEnumAsByte<EGPTModels> Model = GPTM_GPT3_5;
+	TEnumAsByte<EGPTModel> Model = GPTM_GPT3_5;
 
 	// How long the response from GPT should be. Increase this if sentences are getting cut off. Defaults to infinity.
 	// Read about what tokens are and how many are needed here: https://platform.openai.com/tokenizer
@@ -51,7 +51,7 @@ class UOpenAIUtils : public UBlueprintFunctionLibrary
 
 	// Get the display name of an EGPTModels enum value
 	UFUNCTION(BlueprintPure, Category="GROpenAI")
-	static FString GetModelName(EGPTModels ModelEnum);
+	static FString GetModelName(EGPTModel ModelEnum);
 
 	// Initialize conversation struct
 	UFUNCTION(BlueprintCallable, Category="GROpenAI|Conversation")

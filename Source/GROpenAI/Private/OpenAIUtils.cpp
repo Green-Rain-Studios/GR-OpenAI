@@ -32,6 +32,25 @@ void FGPTConversation::ConstructConversationJsonObject()
 	JsonObject.JsonObject->SetArrayField("messages", messagesArray);
 }
 
+void FGPTConversation::RefreshParameters()
+{
+	// Model
+	JsonObject.JsonObject->SetStringField("model", UOpenAIUtils::GetModelName(Model));
+	
+	// Token Length
+	// Set max tokens if a value is provided
+	if(ResponseLength > 0)
+		JsonObject.JsonObject->SetNumberField("max_tokens", ResponseLength);
+	
+	// Context
+	const TArray<TSharedPtr<FJsonValue>>* messagesArray;
+	// Create a TArray of TSharedPtr<FJsonValue> and add the system message to it
+	if(JsonObject.JsonObject->TryGetArrayField("messages", messagesArray))
+	{
+		(*messagesArray)[0]->AsObject()->SetStringField("content", Context);
+	}
+}
+
 FString UOpenAIUtils::GetAPIToken()
 {
 	return GetDefault<UGROpenAISettings>()->Token;
@@ -48,6 +67,24 @@ FString UOpenAIUtils::GetModelName(EGPTModel ModelEnum)
 void UOpenAIUtils::InitializeConversation(FGPTConversation& InConversation)
 {
 	InConversation.ConstructConversationJsonObject();
+}
+
+void UOpenAIUtils::SetConversationGPTModel(FGPTConversation& InConversation, EGPTModel Model)
+{
+	InConversation.Model = Model;
+	InConversation.RefreshParameters();
+}
+
+void UOpenAIUtils::SetResponseLength(FGPTConversation& InConversation, int ResponseLength)
+{
+	InConversation.ResponseLength = ResponseLength;
+	InConversation.RefreshParameters();
+}
+
+void UOpenAIUtils::SetAssistantContext(FGPTConversation& InConversation, FString Context)
+{
+	InConversation.Context = Context;
+	InConversation.RefreshParameters();
 }
 
 void UOpenAIUtils::AddMessage(FGPTConversation& InConversation, FString Role, FString Message)

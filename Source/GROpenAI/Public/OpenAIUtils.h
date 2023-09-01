@@ -20,6 +20,7 @@ struct FGPTConversation
 
 public:
 	void ConstructConversationJsonObject();
+	void RefreshParameters();
 
 	// The model to use. Defaults to gpt-3.5-turbo
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Conversation")
@@ -53,9 +54,21 @@ class UOpenAIUtils : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintPure, Category="GROpenAI")
 	static FString GetModelName(EGPTModel ModelEnum);
 
-	// Initialize conversation struct
+	// Initialize conversation struct. NOTE: Should be called before anything else!
 	UFUNCTION(BlueprintCallable, Category="GROpenAI|Conversation")
 	static void InitializeConversation(UPARAM(ref) FGPTConversation& InConversation);
+
+	// Set or change the model used. If you dont have access to the model selected, the conversation will fail
+	UFUNCTION(BlueprintCallable, Category="GROpenAI|Conversation")
+	static void SetConversationGPTModel(UPARAM(ref) FGPTConversation& InConversation, EGPTModel Model);
+
+	// Set or change max tokens response length. Read more about tokens at: https://platform.openai.com/tokenizer
+	UFUNCTION(BlueprintCallable, Category="GROpenAI|Conversation")
+	static void SetResponseLength(UPARAM(ref) FGPTConversation& InConversation, int ResponseLength);
+
+	// Set or change the context using which the assistant will respond
+	UFUNCTION(BlueprintCallable, Category="GROpenAI|Conversation")
+	static void SetAssistantContext(UPARAM(ref) FGPTConversation& InConversation, FString Context);
 
 	static void AddMessage(FGPTConversation& InConversation,FString Role, FString Message);
 	// Add user message to conversation

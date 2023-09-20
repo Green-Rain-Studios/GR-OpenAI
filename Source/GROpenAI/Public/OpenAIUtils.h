@@ -10,6 +10,7 @@ UENUM(BlueprintType)
 enum EGPTModel : uint8
 {
 	GPTM_GPT3_5		UMETA(DisplayName = "gpt-3.5-turbo"),
+	GPTM_GPT3_5_16k	UMETA(DisplayName = "gpt-3.5-turbo-16k"),
 	GPTM_GPT4		UMETA(DisplayName = "gpt-4")
 };
 
